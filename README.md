@@ -112,7 +112,7 @@ git clone https://github.com/rpark3/ECON-3916-ML-Prediction-Project-Final-Projec
 
 Then enter the project folder:
 
-cd ECON-3916-ML-Prediction-Project-Final-Project
+cd ECON-3916-ML-Prediction-Project-Final-Project2
 
 ### 2. Create a Virtual Environment
 
