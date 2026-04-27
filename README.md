@@ -1,9 +1,11 @@
-# ECON 3916 Final Project  
+# ECON 3916 Final Project
 ## Predicting Diabetes Risk from Health and Lifestyle Indicators
 
 ## Project Overview
 
-This project builds a machine learning model to predict whether an individual is at higher risk of diabetes using health, demographic, and behavioral indicators from the CDC Diabetes Health Indicators dataset. The project is framed as a **prediction** problem, not a causal inference problem. The goal is to support early risk screening, not diagnose diabetes.
+This project builds a machine learning model to predict whether an individual is at higher risk of diabetes using health, demographic, and behavioral indicators from the CDC Diabetes Health Indicators dataset.
+
+This project is framed as a prediction problem, not a causal inference problem. The goal is to support early risk screening, not diagnose diabetes or prove that any individual feature causes diabetes.
 
 ## Prediction Question
 
@@ -11,150 +13,99 @@ Can health, demographic, and behavioral indicators predict whether an individual
 
 ## Stakeholder
 
-The main stakeholder is a **public health screening program, clinic, or preventive care organization** that wants to identify individuals who may benefit from additional screening, follow-up, or preventive education.
+The main stakeholder is a public health screening program, clinic, or preventive care organization that wants to identify individuals who may benefit from additional diabetes screening, preventive education, or clinical follow-up.
 
 ## Decision This Enables
 
-This model can help stakeholders:
-
-- Identify higher-risk individuals
-- Prioritize follow-up screening
-- Target preventive outreach
-- Support education and early intervention
+This model can help stakeholders identify individuals who may be at higher risk of diabetes and prioritize follow-up screening, preventive education, and early intervention efforts.
 
 ## Dataset
 
-This project uses the **CDC Diabetes Health Indicators** dataset derived from **BRFSS 2015**.
+This project uses the CDC Diabetes Health Indicators dataset derived from the 2015 Behavioral Risk Factor Surveillance System.
 
-- **Source:** CDC Behavioral Risk Factor Surveillance System / Diabetes Health Indicators dataset
-- **Target variable:** `Diabetes_binary`
-- **Observations:** 253,680
-- **Predictor variables:** 21
-- **Access date:** April 2026
-
-### Example Predictors
-
-- BMI
-- General health
-- Physical health
-- Mental health
-- High blood pressure
-- High cholesterol
-- Difficulty walking
-- Smoking
-- Physical activity
-- Fruit and vegetable consumption
-- Sex
-- Age
-- Education
-- Income
+- Source: CDC Behavioral Risk Factor Surveillance System / Diabetes Health Indicators dataset
+- Target variable: Diabetes_binary
+- Observations: 253,680
+- Predictor variables: 21
+- Access date: April 2026
 
 ## Prediction vs. Causation
 
-This project is focused on **prediction**, not causal inference. The model estimates whether a person is likely to be classified as diabetic based on observed health and lifestyle indicators. It does **not** prove that any individual feature causes diabetes.
+This project is focused on prediction, not causation. The model estimates whether a person is likely to be classified as diabetic based on observed health and lifestyle indicators. It does not prove that any individual feature causes diabetes.
 
-For example, if high blood pressure or BMI is important in the model, that means those variables are useful for prediction in this dataset. It does not mean the model has proven a causal relationship.
+Feature importance should be interpreted as predictive importance, not causal effect.
 
-## Final Model
+## Models Compared
 
 Two models were compared:
 
 1. Logistic Regression
 2. Random Forest Classifier
 
-The final model selected was **balanced Logistic Regression**.
+The final model selected was balanced Logistic Regression.
 
-### Why Logistic Regression Was Chosen
-
-Although Random Forest achieved a very slightly higher ROC-AUC, the difference was negligible. Logistic Regression was selected because:
-
-- It had higher recall for the diabetes class
-- It is more interpretable
-- It is easier to deploy
-- It produces a smaller saved model artifact
-- It better fits the goal of a screening support tool, where catching more potentially high-risk individuals matters
-
-## Methods Summary
-
-The project uses:
-
-- Exploratory data analysis
-- Missing data and data quality checks
-- Train/test split with `random_state=42`
-- Logistic Regression with class balancing
-- Random Forest Classifier comparison
-- Cross-validation
-- ROC-AUC, recall, precision, and classification metrics
-- Feature importance interpreted as predictive importance, not causal effect
-- Streamlit deployment for interactive prediction
+Balanced Logistic Regression was selected because it performed well, was easier to interpret, was easier to deploy, and better fit the goal of a screening-support tool. In this setting, recall for the diabetes class is especially important because the goal is to identify more potentially high-risk individuals for follow-up.
 
 ## Repository Contents
 
 This repository includes:
 
-- `final_project_notebook.ipynb` — final notebook with EDA, modeling, and evaluation
-- `app.py` — Streamlit dashboard
-- `model.pkl` — saved trained model used by the app
-- `requirements.txt` — Python dependencies
-- `final_report.pdf` — final 5-page report
-- `ai_methodology_appendix.pdf` — AI methodology appendix
-- `README.md` — project overview and reproducibility instructions
+- 3916_final_project.ipynb — final notebook with EDA, modeling, and evaluation
+- app (1).py — Streamlit dashboard application
+- model.pkl — saved trained model used by the app
+- requirements.txt — Python dependencies
+- final_report.pdf — final project report
+- ai_methodology_appendix.pdf — AI methodology appendix
+- README.md — project overview and reproducibility instructions
+
+## Streamlit Dashboard
+
+Deployed app:
+
+https://econ-3916-ml-prediction-project-final-project2-khuflsobpop4w9u.streamlit.app/
+
+The dashboard allows users to adjust health, demographic, and behavioral inputs and view the model’s predicted diabetes risk. The output should be interpreted as a screening-support prediction, not a diagnosis.
 
 ## Reproducibility Instructions
 
 Follow the steps below to reproduce the project locally.
 
-### 1. Clone the Repository
+## 1. Clone the Repository
 
-Command:
+    git clone https://github.com/rpark3/ECON-3916-ML-Prediction-Project-Final-Project2.git
+    cd ECON-3916-ML-Prediction-Project-Final-Project2
 
-git clone https://github.com/rpark3/ECON-3916-ML-Prediction-Project-Final-Project.git
+## 2. Create a Virtual Environment
 
-Then enter the project folder:
+    python -m venv venv
 
-cd ECON-3916-ML-Prediction-Project-Final-Project2
+## 3. Activate the Virtual Environment
 
-### 2. Create a Virtual Environment
+On Mac/Linux:
 
-Command:
+    source venv/bin/activate
 
-python -m venv venv
+On Windows:
 
-### 3. Activate the Virtual Environment
+    venv\Scripts\activate
 
-On Mac/Linux, run:
+## 4. Install Dependencies
 
-source venv/bin/activate
+    pip install -r requirements.txt
 
-On Windows, run:
+## 5. Run the Jupyter Notebook
 
-venv\Scripts\activate
-
-### 4. Install Dependencies
-
-Command:
-
-pip install -r requirements.txt
-
-### 5. Run the Jupyter Notebook
-
-Command:
-
-jupyter notebook final_project_notebook.ipynb
+    jupyter notebook 3916_final_project.ipynb
 
 Run the notebook from top to bottom to reproduce the exploratory data analysis, model training, model comparison, evaluation metrics, and saved model artifact.
 
-### 6. Launch the Streamlit App Locally
+## 6. Launch the Streamlit App Locally
 
-Command:
+Because the app file name contains spaces and parentheses, use quotation marks:
 
-streamlit run app.py
+    streamlit run "app (1).py"
 
 The Streamlit app allows users to adjust health and lifestyle inputs and view the model’s predicted diabetes risk.
-
-## Streamlit Dashboard
-
-Deployed app: [Insert your Streamlit app link here]
 
 ## Results Summary
 
@@ -164,25 +115,30 @@ Because this is a public health screening context, recall for the diabetes class
 
 ## Recommendation
 
-The model can be used as a screening-support tool to help identify individuals who may benefit from additional diabetes screening, preventive education, or follow-up care. It should be used to support decision-making, not replace clinical judgment.
+The model can be used as a screening-support tool to help identify individuals who may benefit from additional diabetes screening, preventive education, or follow-up care.
 
-The most appropriate use case is early risk flagging in a public health or preventive care setting.
+It should not replace clinical judgment. The most appropriate use case is early risk flagging in a public health or preventive care setting.
 
-## Important Limitation
+## Important Limitations
 
-This model is intended for **screening support only**. It should not be used as a diagnostic tool. The model identifies predictive patterns in the dataset, but these relationships should not be interpreted as causal effects.
+This model is intended for screening support only. It should not be used as a diagnostic tool.
 
-The model also depends on the quality and representativeness of the BRFSS 2015 data. Predictions may not generalize perfectly to all populations, healthcare settings, or future years.
+Important limitations include:
+
+- The model identifies predictive patterns, not causal effects
+- Predictions depend on the quality and representativeness of the BRFSS 2015 data
+- The model may not generalize perfectly to all populations, healthcare settings, or future years
+- A high-risk prediction should be interpreted as a signal for possible follow-up, not as a medical diagnosis
 
 ## AI Methodology
 
 AI tools were used as a co-pilot during the project and documented using the P.R.I.M.E. framework:
 
-- **Prep:** Defined the task and project goals before prompting
-- **Request:** Wrote a specific prompt for help with coding, interpretation, or writing
-- **Iterate:** Refined AI output when it was incomplete or unclear
-- **Mechanism Check:** Verified that code worked and that outputs made sense
-- **Evaluate:** Applied human judgment to decide what to keep, revise, or reject
+- Prep: Defined the task and project goals before prompting
+- Request: Wrote specific prompts for help with coding, interpretation, debugging, or writing
+- Iterate: Refined AI output when it was incomplete, unclear, or incorrect
+- Mechanism Check: Verified that code worked and that outputs made sense
+- Evaluate: Applied human judgment to decide what to keep, revise, or reject
 
 The full documentation is included in the AI methodology appendix.
 
@@ -190,12 +146,12 @@ The full documentation is included in the AI methodology appendix.
 
 To reproduce the project, the following files should be present in the repository:
 
-- `final_project_notebook.ipynb`
-- `app.py`
-- `model.pkl`
-- `requirements.txt`
-- `final_report.pdf`
-- `ai_methodology_appendix.pdf`
+- 3916_final_project.ipynb
+- app (1).py
+- model.pkl
+- requirements.txt
+- final_report.pdf
+- ai_methodology_appendix.pdf
 
 ## Notes for Users
 
